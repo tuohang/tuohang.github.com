@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+<script src="jquery.js"></script>
+<style>
+/*img{width:400px;height:100px;}*/
+ul,li,body{margin:0;padding:0;}
+li{list-style:none;}
+img{display:block;border:0;}
+a{width:1210px;display:block;margin:0 auto;}
+.imgbox li{position:absolute;}
+.banner{position:relative;height:360px;overflow:hidden;} 
+.jiantou_1{position:absolute;top:128px;left:60px;width:49px;height:106px;background:url(images/a01.png) no-repeat;cursor:pointer;}
+.jiantou_1:hover{background:url(images/a.png) no-repeat;}
+.jiantou_2{position:absolute;top:128px;right:60px;width:49px;height:106px;cursor:pointer;background:url(images/s01.png) no-repeat;}
+.jiantou_2:hover{background:url(images/s.png) no-repeat;}
+.btn{position:absolute;bottom:0;left:50%;margin-left:-60px;}
+.btn li{width:10px;height:10px;background-color:#666;float:right;margin:15px;}
+.btn .curter{background-color:#F00;}
+</style>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+<div class="banner">
+    <div class="imgbox">
+	<ul>
+    	<li style="background-color:#FFF;width:100%">
+    	<a href=""><img src="images/img4.jpg" /></a>
+    	</li>
+    	<li class="img_00" style="background-color:#f3e5d8;width:100%">
+    	<a href=""><img src="images/img1.jpg" /></a>
+    	</li>
+        <li class="img_01" style="background-color:#b41615;width:100%">
+    	<a href=""><img src="images/img2.jpg" /></a>
+    	</li>
+        <li class="img_02" style="background-color:#846401;width:100%">
+    	<a href=""><img src="images/img3.jpg" /></a>
+    	</li>
+        <li class="img_03" style="background-color:#FFF;width:100%">
+    	<a href=""><img src="images/img4.jpg" /></a>
+    	</li>
+        <li style="background-color:#f3e5d8;width:100%">
+    	<a href=""><img src="images/img1.jpg" /></a>
+    	</li>
+    </ul>
+    </div>
+    <div class="jiantou_1"></div>
+    <div class="jiantou_2"></div>
+    <div class="btn">
+    <ul>
+    	<li class="curter"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    </div>
+</div>
+<script>
+$(".imgbox li").last().hide();
+n=$(".imgbox li").length-2;
+/*自动播放*/
+function run(){
+	if(n>0){
+	n=n-1;
+	}else{
+	n=3;
+	$(".imgbox li").show();
+	$(".imgbox li").last().hide();
+	}
+	$(".img_0"+n).stop(true,true).fadeOut(500);
+	/*换钮*/
+	$(".btn li").removeClass("curter");
+	$(".btn li").eq(n).addClass("curter");
+}
+timer = setInterval(run,1000);
+/*箭头按钮*/
+$(".jiantou_2").click(function(){
+	if(n>0){
+	n=n-1;
+	}else{
+	n=3;
+	$(".imgbox li").show();
+	$(".imgbox li").last().hide();
+	}
+	document.title=n;
+	$(".img_0"+n).stop(true,true).fadeOut(500);
+	/*换钮*/
+	$(".btn li").removeClass("curter");
+	$(".btn li").eq(n).addClass("curter");
+})
+$(".jiantou_1").click(function(){
+	if(n<$(".imgbox li").length-2){
+	n=n+1;
+	}else{
+	n=1;
+	$(".imgbox li").last().stop(true,true).fadeIn(500,function(){
+		$(".imgbox li").hide();
+		$(".imgbox li").eq(0).show();
+		$(".imgbox li").eq(1).show();
+	});
+	}
+	document.title=n;
+	$(".img_0"+(n-1)).stop(true,true).fadeIn(500);
+		/*换钮*/
+	$(".btn li").removeClass("curter");
+	if(n==4){
+		$(".btn li").eq(0).addClass("curter");
+	}else{
+		$(".btn li").eq(n).addClass("curter");	
+	}
+})
+/*打开关闭定时器*/
+$(".jiantou_1,.jiantou_2").mouseenter(function(){
+	clearInterval(timer);
+}).mouseleave(function(){
+	timer = setInterval(run,2000);	
+})
+/*下面的小按钮*/
+</script>
+</body>
+</html>
